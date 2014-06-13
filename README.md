@@ -24,7 +24,7 @@ corpus files into the sparse matrix file for PLSA training.
 Usage
 > ./process     -corpusfolder \<folder\> -stopwordfile \<file\> -vocfile \<file\> 
 
->               -matrixfile \<file\> -lowfreq \<int\>
+>               -matrixfile <file> -lowfreq <int>
 
 ##### 2.1.2 plsa
 plsa is used for PLSA training.
@@ -32,7 +32,7 @@ plsa is used for PLSA training.
 Usage
 > ./plsa        -matrixfile \<file\> -vocfile \<file\> -topic \<int\> -iter \<int\> 
 
->               -eps \<double\> -topk \<int\> -resultfolder \<folder\>
+>               -eps <double> -topk <int> -resultfolder <folder>
 
 #### 2.2 Parameters of process and plsa
 > -corpusfolder: raw corpus folder.

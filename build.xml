@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<project name="PLSA" default="dist" basedir=".">
+    <description>PLSA</description>
+    <!--set global properties for this build-->
+    <!--source code dir-->
+    <property name="src.dir" location="src"/>
+    <!--test code dir-->
+    <property name="test.src.dir" location="test"/>
+    <!--lib (.jar) files dir-->
+    <property name="lib.dir" location="lib"/>
+    <!--build output dir-->
+    <property name="build.dir" location="build"/>
+    <!--dir for output class files of source code files-->
+    <property name="build.classes" location="${build.dir}/classes"/>
+    <!--dir for output class files of test code files -->
+    <property name="build.test.classes" location="${build.dir}/test/classes"/>
+    <!--test report dir-->
+    <property name="build.test.report" location="${build.dir}/test/report"/>
+    <!--final dist dir-->
+    <property name="dist.dir" location="dist"/>
+
+    <!--set test classname-->
+    <property name="test.classname" value="**/*Test.class"></property>
+
+    <!--set path -->
+    <path id="src.compile.path">
+        <fileset dir="${lib.dir}" includes="*.jar"></fileset>
+    </path>
+
+    <path id="test.compile.path">
+        <path refid="src.compile.path" />
+        <pathelement location="${build.classes}"/>
+    </path>
+
+    <path id="test.run.path">
+        <path refid="test.compile.path"></path>
+        <pathelement location="${build.test.classes}"/>
+    </path>
+
+    <!--targets-->
+    <target name="init">
+        <!-- Create the build directory structure used by compile/test-compile -->
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.classes}"/>
+        <mkdir dir="${build.test.classes}"/>
+        <mkdir dir="${build.test.report}"/>
+    </target>
+
+    <target name="compile" depends="init"
+        description="compile the source " >
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac failonerror="true" includeantruntime="false"
+            srcdir="${src.dir}" destdir="${build.classes}" 
+            classpathref="src.compile.path">
+            <!--<classpath location="${lib.dir}/commons-cli-1.2.jar"></classpath>-->
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile"
+        description="generate the distribution" >
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist.dir}/lib"/>
+        <!-- Put everything in ${build.classes} into the plsa-*.jar file -->
+        <jar jarfile="${dist.dir}/lib/plsa-1.0.jar" basedir="${build.classes}"/>
+        <copy todir="${dist.dir}/lib">
+            <fileset dir="${lib.dir}">
+                <exclude name="junit-4.10.jar"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testcompile" depends="compile">
+        <javac failonerror="true"  includeantruntime="false" 
+            srcdir="${test.src.dir}" destdir="${build.test.classes}" 
+            classpathref="test.compile.path">
+            <!--<classpath location="${lib.dir}/junit-4.10.jar"></classpath>-->
+            <!--<classpath location="${build.classes}"></classpath>-->
+        </javac>
+    </target>
+
+    <target name="test" depends="testcompile">
+        <echo>run test</echo>
+        <junit printsummary="false" haltonfailure="false">
+            <classpath refid="test.run.path"></classpath>
+            <!--<classpath location="${lib.dir}/junit-4.10.jar"></classpath>-->
+            <!--<classpath location="${build.classes}"></classpath>-->
+            <!--<classpath location="${build.test.classes}"></classpath>-->
+            <formatter type="brief" usefile="false"/>
+            <formatter type="xml"/>
+            <batchtest todir="${build.test.report}">
+                <fileset dir="${build.test.classes}" includes="${test.classname}"></fileset>
+            </batchtest>
+        </junit>
+        <!--<junitreport todir="${build.test.report}">-->
+            <!--<fileset dir="${build.test.report}" includes="TEST-*.xml"></fileset>-->
+            <!--<report format="frames" todir="${build.test.report}/html"/>-->
+            <!--</junitreport>-->
+    </target>
+
+    <target name="clean"
+        description="clean up" >
+        <!-- Delete the ${build.dir} and ${dist.dir} directory trees -->
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+</project>

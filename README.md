@@ -22,7 +22,7 @@ process is used for pre-processing the raw corpus. It will transfer the raw
 corpus files into the sparse matrix file for PLSA training.
 
 Usage
-> process -corpusfolder <folder> -stopwordfile <file> -vocfile <file> 
+> ./process -corpusfolder \<folder\> -stopwordfile \<file\> -vocfile \<file\> 
 
 > -matrixfile <file> -lowfreq <int>
 

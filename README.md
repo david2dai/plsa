@@ -22,7 +22,7 @@ process is used for pre-processing the raw corpus. It will transfer the raw
 corpus files into the sparse matrix file for PLSA training.
 
 Usage
-> ./process -corpusfolder <file> -stopwordfile <file> -vocfile <file> 
+> ./process -corpusfolder <folder> -stopwordfile <file> -vocfile <file> 
 
 >           -matrixfile <file> -lowfreq <int>
 
@@ -32,7 +32,7 @@ plsa is used for PLSA training.
 Usage
 > ./plsa    -matrixfile <file> -vocfile <file> -topic <int> -iter <int> 
 
->           -eps <double> -topk <int> -resultfolder <file>
+>           -eps <double> -topk <int> -resultfolder <folder>
 
 #### 2.2 Parameters of process and plsa
 > -corpusfolder: raw corpus folder.
@@ -41,7 +41,7 @@ Usage
 
 > -vocfile: the file for the generated vocabulary of corpus.
 
-> -matrixfile: the matrix file generated, this will be used for train. 
+> -matrixfile: the matrix file generated, this file will be used for train. 
 
 > -lowfreq: low freq(<lowfreq) word will be discarded.
 

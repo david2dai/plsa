@@ -13,6 +13,7 @@ so you can also use this tool without re-compiling.
 ### 2. How to use this tool 
 There are only 2 shell scripts under the root folder of this project: 
 > process 
+
 > plsa
 
 #### 2.1 Usage
@@ -22,35 +23,37 @@ corpus files into the sparse matrix file for PLSA training.
 
 Usage
 > ./process -corpusfolder <file> -stopwordfile <file> -vocfile <file> 
-            -matrixfile <file> -lowfreq <int>
+
+>           -matrixfile <file> -lowfreq <int>
 
 ##### 2.1.2 plsa
 plsa is used for PLSA training.
 
 Usage
 > ./plsa    -matrixfile <file> -vocfile <file> -topic <int> -iter <int> 
-            -eps <double> -topk <int> -resultfolder <file>
+
+>           -eps <double> -topk <int> -resultfolder <file>
 
 #### 2.2 Parameters of process and plsa
-> -corpusfolder   raw corpus folder.
+> -corpusfolder: raw corpus folder.
 
-> -stopwordfile   stopwords vocabulary file. 
+> -stopwordfile: stopwords vocabulary file. 
 
-> -vocfile        the file for the generated vocabulary of corpus.
+> -vocfile: the file for the generated vocabulary of corpus.
 
-> -matrixfile     the matrix file generated, this will be used for train. 
+> -matrixfile: the matrix file generated, this will be used for train. 
 
-> -lowfreq        low freq(<lowfreq) word will be discarded.
+> -lowfreq: low freq(<lowfreq) word will be discarded.
 
-> -topic          the topic #.
+> -topic: the topic #.
 
-> -iter           the max train iterate times. 
+> -iter: the max train iterate times. 
 
-> -eps            early stop threshold(tool will sotp when the likelihood diff of 2 iterate < eps). 
+> -eps: early stop threshold(tool will sotp when the likelihood diff of 2 iterate < eps). 
 
-> -topk           the topK words of a topic will show.
+> -topk: the topK words of a topic will show.
 
-> -resultfolder   train reslut folder.
+> -resultfolder: train reslut folder.
 
 
 ### 3. Input Data Format
@@ -66,6 +69,8 @@ Plain english text files.
 > ...
 
 > file_D word:freq word:freq ...
+
+file_i is the full pathname of the i-th file
 
 ##### 4.1.2 vocfile includes the vocabulary got from the corpus 
 > word0

@@ -41,15 +41,30 @@ public class Start {
     }
 
     public static void processUasge() {
-        String usage = "process\t-corpusfolder <file> -stopwordfile <file> " +
-            "-vocfile <file> -matrixfile <file> -lowfreq <int>";
-        System.out.println (usage);
+        String usage = "process\t-corpusfolder <folder> -stopwordfile <file> " +
+            "-vocfile <file> -matrixfile <file> -lowfreq <int>\n" +
+            "\nParameters:\n" +
+            "-corpusfolder  raw corpus folder\n" +
+            "-stopwordfile  stopwords vocabulary file.\n" +
+            "-vocfile       the file for the generated vocabulary of corpus.\n" +
+            "-matrixfile    the matrix file generated, this file will be used for train.\n" +
+            "-lowfreq       low freq(<lowfreq) word will be discarded.\n" +
+            "-topic         the topic #.\n";
+        System.out.println(usage);
     }
     
     public static void plsaUasge() {
         String usage = "plsa\t-matrixfile <file> -vocfile <file> " +
             "-topic <int> -iter <int> -eps <double> -topk <int> " +
-            "-resultfolder <file>";
+            "-resultfolder <file>\n" +
+            "\nParameters:\n" +
+            "-matrixfile    the matrix file generated, this file will be used for train.\n" +
+            "-vocfile       the file for the generated vocabulary of corpus.\n" +
+            "-topic         the topic #.\n" +
+            "-iter          the max train iterate times.\n" +
+            "-eps           early stop threshold(tool will sotp when the likelihood diff of 2 iterate < eps).\n" + 
+            "-topk          the topK words of a topic will show.\n" +
+            "-resultfolder  train reslut folder.";
         System.out.println(usage);
     }
     
@@ -91,7 +106,7 @@ public class Start {
             // parse the command line arguments
             CommandLine line = parser.parse(options, args);
 
-            if(line.hasOption("process")) {
+            if(line.hasOption("process")) { // parse process args
                 String corpusFolder = null; 
                 String stopWordFile = null; 
                 String vocFile = null; 
@@ -136,7 +151,7 @@ public class Start {
                 
                 preProcess(corpusFolder, stopWordFile, vocFile, lowFreq, matrixFile);
 
-            } else if (line.hasOption("plsa")) {
+            } else if (line.hasOption("plsa")) { // parse plsa args
                 String resultFolder = null; 
                 String vocFile = null; 
                 String matrixFile = null; 

@@ -20,15 +20,18 @@
     <property name="dist.dir" location="dist"/>
 
     <!--set test classname-->
-    <property name="test.classname" value="**/*Test.class"></property>
+    <property name="test.classname" value="**/*Test.class"/>
 
     <!--set path -->
     <path id="src.compile.path">
-        <fileset dir="${lib.dir}" includes="*.jar"></fileset>
+        <fileset dir="${lib.dir}" includes="*.jar">
+            <exclude name="junit-4.10.jar"/>
+        </fileset>
     </path>
 
     <path id="test.compile.path">
         <path refid="src.compile.path" />
+        <pathelement location="lib/junit-4.10.jar"/>
         <pathelement location="${build.classes}"/>
     </path>
 
@@ -52,7 +55,6 @@
         <javac failonerror="true" includeantruntime="false"
             srcdir="${src.dir}" destdir="${build.classes}" 
             classpathref="src.compile.path">
-            <!--<classpath location="${lib.dir}/commons-cli-1.2.jar"></classpath>-->
         </javac>
     </target>
 
@@ -71,10 +73,8 @@
 
     <target name="testcompile" depends="compile">
         <javac failonerror="true"  includeantruntime="false" 
-            srcdir="${test.src.dir}" destdir="${build.test.classes}" 
-            classpathref="test.compile.path">
-            <!--<classpath location="${lib.dir}/junit-4.10.jar"></classpath>-->
-            <!--<classpath location="${build.classes}"></classpath>-->
+            srcdir="${test.src.dir}" destdir="${build.test.classes}" > 
+            <classpath refid="test.compile.path"></classpath>
         </javac>
     </target>
 
@@ -82,9 +82,6 @@
         <echo>run test</echo>
         <junit printsummary="false" haltonfailure="false">
             <classpath refid="test.run.path"></classpath>
-            <!--<classpath location="${lib.dir}/junit-4.10.jar"></classpath>-->
-            <!--<classpath location="${build.classes}"></classpath>-->
-            <!--<classpath location="${build.test.classes}"></classpath>-->
             <formatter type="brief" usefile="false"/>
             <formatter type="xml"/>
             <batchtest todir="${build.test.report}">
